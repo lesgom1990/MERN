@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export default class CreateUsers extends Component {
     constructor(props) {
@@ -24,6 +25,13 @@ export default class CreateUsers extends Component {
             username: this.state.username,
         }
         console.log(user);
+
+        //aca vamos a enviar los datos de usuario al backend
+        axios.post('http://localhost:5000/users/add', user)
+        .then(res => console.log(res.data));
+        //revisar el archivo users.js, para ver los metodos que tiene
+        //para este caso lo que espera es el username
+
         //para que varios usuarios ingresen al tiempo:
         this.setState({
             username: ''
