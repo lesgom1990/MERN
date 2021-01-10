@@ -22,7 +22,7 @@ const Exercise = props => (
       <td>{props.exercise.duration}</td>
       <td>{props.exercise.date.substring(0,10)}</td>
       <td>
-        <Link to={"/edit/"+props.exercise._id}>edit</Link> | <a href="#" onClick={() => { props.deleteExercise(props.exercise._id) }}>delete</a>
+            <Link to={"/edit/" + props.exercise._id}>edit</Link> | <a href="" onClick={() => { props.deleteExercise(props.exercise._id) }}>delete</a>
       </td>
     </tr>
   )
@@ -30,7 +30,6 @@ const Exercise = props => (
 export default class ExercisesList extends Component {
     constructor(props) {
         super(props);
-        this.deleteExercise = this.deleteExercise.bind(this);
         this.state = { exercises: [] };
     }
 
@@ -44,8 +43,8 @@ export default class ExercisesList extends Component {
             })
     }
 
-    deleteExercise(id) {
-        axios.delete('http://localhost:5000/exercises' + id)
+    deleteExercise = (id) => {
+        axios.delete('http://localhost:5000/exercises/' + id)
             .then(response => console.log(response.data));//loguea lo que se ha eliminado del backend
         /*
         despues de eliminar el exercise de la base de datos, vamos a eliminarlo también
@@ -55,7 +54,7 @@ export default class ExercisesList extends Component {
         */
 
         this.setState({
-            exercises: this.state.exercises.filter(el => el._id !== id)
+            exercises: this.state.exercises.filter(element => element._id !== id)
         })//react automáticamente actualiza la página con el nuevo estado
     }//el arreglo de exercises se filtra, retornando solo ciertos elementos
     /* entonces para cada elemento del arreglo exercises 

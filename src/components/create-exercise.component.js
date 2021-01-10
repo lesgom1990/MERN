@@ -7,12 +7,6 @@ export default class CreateExercises extends Component {
     constructor(props) {
         super(props);
 
-        this.onChangeUsername = this.onChangeUsername.bind(this);
-        this.onChangeDescription = this.onChangeDescription.bind(this);
-        this.onChangeDuration = this.onChangeDuration.bind(this);
-        this.onChangeDate = this.onChangeDate.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-
         this.state = {
             username: '',
             description: '',
@@ -24,41 +18,41 @@ export default class CreateExercises extends Component {
 
     componentDidMount() {
         axios.get('http://localhost:5000/users/')
-        .then(response =>{
-            if(response.data.length > 0) {
-                this.setState({
-                    users: response.data.map(user=>user.username),
-                    username: response.data[0].username
-                })
-            }
-        })
+            .then(response => {
+                if (response.data.length > 0) {
+                    this.setState({
+                        users: response.data.map(user => user.username),
+                        username: response.data[0].username
+                    })
+                }
+            })
     }
 
-    onChangeUsername(e) {
+    onChangeUsername = (e) => {
         this.setState({
             username: e.target.value
         });
     }
 
-    onChangeDescription(e) {
+    onChangeDescription = (e) => {
         this.setState({
             description: e.target.value
         });
     }
 
-    onChangeDuration(e) {
+    onChangeDuration = (e) => {
         this.setState({
             duration: e.target.value
         });
     }
 
-    onChangeDate(date) {
+    onChangeDate = (date) => {
         this.setState({
             date: date
         });
     }
 
-    onSubmit(e) {
+    onSubmit = (e) => {
         e.preventDefault()
         {/*esto previene el html por defecto 
         que tiene un comportamiento del submit estándar 
@@ -72,7 +66,7 @@ export default class CreateExercises extends Component {
         console.log(exercise)
 
         axios.post('http://localhost:5000/exercises/add', exercise)
-        .then(res => console.log(res.data));
+            .then(res => console.log(res.data));
 
         window.location = '/'
     }
